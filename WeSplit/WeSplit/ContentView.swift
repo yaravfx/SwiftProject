@@ -30,8 +30,7 @@ struct ContentView: View {
         NavigationView {
             Form {
                 Section {
-                    TextField("Amount", value: $checkAmount, format:
-                        .currency(code: Locale.current.currencyCode ?? "USD"))
+                    TextField("Amount", value: $checkAmount, format: .currency(code: Locale.current.currencyCode ?? "USD"))
                         .keyboardType(.decimalPad)
                         .focused($amountIsFocused)
                     Picker("Number of people", selection: $numberOfPeople) {
@@ -51,10 +50,10 @@ struct ContentView: View {
                 } header: {
                     Text("How much tip do you want to leave?")
                 }
-                
+            
                 Section {
                     Text(totalPerPerson, format: .currency(code:
-                                                            Locale.current.currencyCode ?? "USD"))
+                        Locale.current.currencyCode ?? "USD"))
                 }
             }
             .navigationTitle("WeSplit")
