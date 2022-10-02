@@ -14,29 +14,37 @@ struct ContentView: View {
     @FocusState private var inputIsFocused: Bool
     let unitOptions = ["CM", "Inch", "Foot"]
 
-    var output: Double {
-        var inchOutput: Double?
+    var inchOutput :Double? {
         switch inputUnitOption {
         case "CM":
-            inchOutput = (input ?? 0.0) * 0.393701
+            return (input ?? 0) * 0.393701
         case "Foot":
-            inchOutput = (input ?? 0.0) * 12
+            return (input ?? 0) * 12
         default:
-            inchOutput = input ?? 0
+            return input ?? 0
         }
-
+    }
+    var output: Double {
         switch outputUnitOption {
         case inputUnitOption:
             return input ?? 0.0
         case "CM":
-            return (inchOutput ?? 0.0) * 2.54
+            return (inchOutput ?? 0) * 2.54
         case "Foot":
-            return (inchOutput ?? 0.0) * 0.08333333
+            return (inchOutput ?? 0) * 0.08333333
         default:
-            return inchOutput ?? 0.0
+            return inchOutput ?? 0
         
         }
     }
+    
+    var ftOutput: Int {
+        Int((inchOutput ?? 0) * 0.083)
+    }
+    var ftInchOutput: Double{
+        Double(inchOutput ?? 0) - (Double(12 * ftOutput))
+    }
+    
         
         
     var body: some View {
@@ -57,8 +65,7 @@ struct ContentView: View {
                 }
                 
                 Section {
-                    Text(output, format:
-                        .number)
+                    Text(output, format: .number)
                     Picker("Output unit", selection: $outputUnitOption) {
                         ForEach(unitOptions, id: \.self) {
                             Text($0)
@@ -67,6 +74,22 @@ struct ContentView: View {
                     .pickerStyle(.segmented)
                 } header: {
                     Text("Result")
+                }
+                
+                Section {
+                    HStack {
+                        Text(ftOutput, format: .number)
+                        Text("ft")
+                            .padding(5)
+                            .background(.ultraThinMaterial)
+                        Text(round(ftInchOutput), format: .number)
+                            
+                        Text("inch")
+                            .padding(5)
+                            .background(.ultraThinMaterial)
+                    }
+                } header: {
+                    Text("ft & inch")
                 }
             }
             .navigationTitle("MyLengthConvertor")
