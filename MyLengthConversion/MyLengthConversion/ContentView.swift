@@ -82,11 +82,12 @@ struct ContentView: View {
                         Text("ft")
                             .padding(5)
                             .background(.ultraThinMaterial)
+                            .clipShape(RoundedRectangle(cornerRadius: 5))
                         Text(round(ftInchOutput), format: .number)
-                            
                         Text("inch")
                             .padding(5)
                             .background(.ultraThinMaterial)
+                            .clipShape(RoundedRectangle(cornerRadius: 5))
                     }
                 } header: {
                     Text("ft & inch")
